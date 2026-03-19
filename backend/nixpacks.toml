@@ -1,9 +1,13 @@
 # Railway Nixpacks configuration
 [phases.setup]
-nixPkgs = ["python311", "gcc", "gdal", "geos", "proj"]
+nixPkgs = ["python311", "gcc", "gdal", "geos", "proj", "pkg-config"]
+aptPkgs = ["libgdal-dev", "libgeos-dev", "libproj-dev"]
 
 [phases.install]
-cmds = ["pip install -r requirements.txt"]
+cmds = ["pip install --upgrade pip", "pip install -r requirements.txt"]
 
 [start]
 cmd = "python -m uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+
+[variables]
+PYTHONUNBUFFERED = "1"
