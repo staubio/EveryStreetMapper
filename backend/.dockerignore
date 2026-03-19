@@ -1,0 +1,34 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+venv
+.venv
+*.egg-info
+
+# Cache (OSMnx cache files)
+cache/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea
+.vscode
+*.swp
+
+# Tests
+tests/
+pytest.ini
+.coverage
+
+# Docs
+*.md
+!README.md

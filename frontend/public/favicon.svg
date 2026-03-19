@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Red route going around the frame edges -->
+  <!-- Start bottom-left, go up, across top, down right side, return along bottom -->
+  <path
+    d="M 4 28 L 4 4 L 28 4 L 28 28 L 4 28"
+    fill="none"
+    stroke="#dc3545"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Arrowhead on bottom pointing left (back to start) -->
+  <path
+    d="M 10 24 L 4 28 L 10 32"
+    fill="none"
+    stroke="#dc3545"
+    stroke-width="3"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <!-- Small start indicator at bottom-left -->
+  <circle cx="4" cy="28" r="2.5" fill="#27ae60" />
+</svg>
