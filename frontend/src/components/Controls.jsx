@@ -1,5 +1,9 @@
 import React from 'react'
 
+// Conversion constants
+const KM_TO_MILES = 0.621371
+const SQ_KM_TO_SQ_MILES = 0.386102
+
 function Controls({
   polygon,
   startPoint,
@@ -13,10 +17,27 @@ function Controls({
   canCalculate,
   honorOneways,
   onHonorOnewaysChange,
+  useMetric,
+  onUseMetricChange,
   onCalculateRoute,
   onDownloadGPX,
   onClearRoute
 }) {
+  // Helper to format distance
+  const formatDistance = (km) => {
+    if (useMetric) {
+      return `${km.toFixed(2)} km`
+    }
+    return `${(km * KM_TO_MILES).toFixed(2)} mi`
+  }
+
+  // Helper to format area
+  const formatArea = (sqKm) => {
+    if (useMetric) {
+      return `${sqKm.toFixed(2)} km²`
+    }
+    return `${(sqKm * SQ_KM_TO_SQ_MILES).toFixed(2)} mi²`
+  }
   return (
     <div className="sidebar">
       <div>
@@ -31,6 +52,9 @@ function Controls({
           <li>Click "Calculate Route" to generate the optimal path</li>
           <li>Download the GPX file for navigation</li>
         </ol>
+        <div style={{ marginTop: '12px', fontSize: '0.75rem', color: '#6c757d' }}>
+          by <a href="https://bsky.app/profile/staubio.com" target="_blank" rel="noopener noreferrer" style={{ color: '#007bff' }}>@staubio</a>
+        </div>
       </div>
 
       <div className="section">
@@ -45,7 +69,7 @@ function Controls({
           <div className="status-item">
             <span className="status-label">Area Size</span>
             <span className={`status-value ${isAreaValid ? 'success' : 'error'}`}>
-              {areaSize.toFixed(2)} km² {!isAreaValid && `(max ${maxAreaSize} km²)`}
+              {formatArea(areaSize)} {!isAreaValid && `(max ${formatArea(maxAreaSize)})`}
             </span>
           </div>
         )}
@@ -72,6 +96,17 @@ function Controls({
             <span>Honor one-way streets</span>
           </label>
         </div>
+        <div className="status-item" style={{ marginTop: '8px' }}>
+          <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
+            <input
+              type="checkbox"
+              checked={useMetric}
+              onChange={(e) => onUseMetricChange(e.target.checked)}
+              style={{ cursor: 'pointer' }}
+            />
+            <span>Use metric units</span>
+          </label>
+        </div>
       </div>
 
       {error && (
@@ -92,12 +127,12 @@ function Controls({
           <h2>Route Statistics</h2>
           <div className="stats-grid">
             <div className="stat-item">
-              <div className="stat-value">{routeStats.totalDistance}</div>
-              <div className="stat-label">Total Distance (km)</div>
+              <div className="stat-value">{formatDistance(routeStats.totalDistance)}</div>
+              <div className="stat-label">Total Distance</div>
             </div>
             <div className="stat-item">
-              <div className="stat-value">{routeStats.uniqueDistance}</div>
-              <div className="stat-label">Unique Distance (km)</div>
+              <div className="stat-value">{formatDistance(routeStats.uniqueDistance)}</div>
+              <div className="stat-label">Unique Distance</div>
             </div>
             <div className="stat-item">
               <div className="stat-value">{routeStats.overlapPercentage}%</div>

@@ -14,6 +14,7 @@ function App() {
   const [routeStats, setRouteStats] = useState(null)
   const [areaSize, setAreaSize] = useState(null)
   const [honorOneways, setHonorOneways] = useState(false)
+  const [useMetric, setUseMetric] = useState(true)
 
   const { loading, error, calculateRoute, downloadGPX, clearError } = useApi()
 
@@ -136,6 +137,8 @@ function App() {
         canCalculate={canCalculate}
         honorOneways={honorOneways}
         onHonorOnewaysChange={setHonorOneways}
+        useMetric={useMetric}
+        onUseMetricChange={setUseMetric}
         onCalculateRoute={handleCalculateRoute}
         onDownloadGPX={handleDownloadGPX}
         onClearRoute={handleClearRoute}
